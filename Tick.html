@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+    <title>Ticket Sales</title>
+    <style>
+        body{
+    font-family: Arial, sensserif;
+}
+header{
+    background-color: #333;
+    color:#fff;
+    padding: 1em;
+    text-align: center;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+}
+.events{
+    background-color: #f7f7f7;
+    padding: 1em;
+    border: 1px solid #ddd;
+}
+.events ul {
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
+.events li{
+    margin-bottom: 1em;
+}
+
+.buy-ticket{
+    background-color: #570e17;
+    color: #fff;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+.cart{
+    background-color: #f7f7f7;
+    padding: 1em;
+    border: 1px solid #ddd;
+    margin-top: 2em;
+}
+#cart-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#checkout-btn{
+    background-color:#4caf50;
+    color:#fff;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+    </style>
+    <script>
+        //Initialize cart
+let cart = [];
+
+//Function to add item to cart 
+function addItem(event){
+    const eventId = event.target.dataset.eventId;
+    const eventPrice = event.target.dataset.eventPrice;
+    const eventTitle = event.target.dataset.eventTitle;
+
+    const item = {
+        id: eventId,
+        title: eventTitle,
+        price: eventPrice,
+    };
+    cart.push(item);
+    updateCart();
+}
+
+//function to update cart display 
+function updateCart(){
+    const cartList = document.getElementById('cart list');
+    cartList.innerHTML = '';
+    cart.forEach((item)=>{
+        const listItem =document.createElement('li');
+        listItem.textContent = '${item.title} - $${item.price}';
+        cartList.appendChild(listItem);
+    });
+
+    const total = cart.reduce((acc, item)=>acc+parseInt(item.price),0);
+    document.querySelector('P').textContent='Total:$${total}';
+}
+//add event listeners to buy ticket buttons
+const buyTicketBtns = document.querySelectorAll('.buy ticket');
+buyTicketBtns.forEach((btn)=>{
+    btn.addEventListener('click',addItem);
+});
+//Add event listeners to checkout button
+const checkoutBtn = document.getElementById('checkoutbtn');
+checkoutBtn.addEventListener('click',() => {
+    // Implement checkout logic here
+    alert('Checkout successful!');
+});
+    </script>
+</head>
+<body>
+    <header>
+        <hi>Ticket Sales</hi>
+    </header>
+    <main>
+        <section class="Tickets">
+            <h2>Upcoming Events</h2>
+            <ul>
+                <li>
+                    <h3>Ticket 1</h3>
+                    <p>Date: 2024-03-01</p>
+                    <p>Time: 7:00</p>
+                    <p>Price:#100</p>
+                    <button class="buy-ticket">buy Ticket </button>
+                
+                </li>
+            </ul>
+            <h2>Upcoming Events</h2>
+            <ul>
+                <li>
+                    <h3>Ticket 2</h3>
+                    <p>Date: 2024-03-01</p>
+                    <p>Time: 7:00</p>
+                    <p>Price:#100</p>
+                    <button class="buy-ticket">buy Ticket </button>
+                
+                </li>
+            </ul>
+        </section>
+        <section class="cart">
+            <h2>Your cart</h2>
+            <ul id="cart-list">
+                <!--cart items will be displayed here-->
+            </ul>
+            <p>Total:#0</p>
+            <button id="checkout-bnt">checkout</button>
+        </section>
+    </main>
+ 
+</body>
+
+</html>
